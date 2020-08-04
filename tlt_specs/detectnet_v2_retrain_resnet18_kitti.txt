@@ -1,0 +1,211 @@
+random_seed: 42
+dataset_config {
+  data_sources {
+    tfrecords_path: "/home/data/tfrecords/kitti_train/*"
+    image_directory_path: "/home/data/train"
+  }
+  image_extension: "jpg"
+  target_class_mapping {
+    key: "mask"
+    value: "mask"
+  }
+  target_class_mapping {
+    key: "no-mask"
+    value: "no-mask"
+  }
+  validation_fold: 0
+  #validation_data_source: {
+    #tfrecords_path: "/home/data/tfrecords/kitti_val/*"
+    #image_directory_path: "/home/data/test"
+  #}
+}
+
+augmentation_config {
+  preprocessing {
+    output_image_width: 960
+    output_image_height: 544
+    min_bbox_width: 1.0
+    min_bbox_height: 1.0
+    output_image_channel: 3
+  }
+  spatial_augmentation {
+    hflip_probability: 0.5
+    zoom_min: 1.0
+    zoom_max: 1.0
+    translate_max_x: 8.0
+    translate_max_y: 8.0
+  }
+  color_augmentation {
+    hue_rotation_max: 25.0
+    saturation_shift_max: 0.20000000298
+    contrast_scale_max: 0.10000000149
+    contrast_center: 0.5
+  }
+}
+
+postprocessing_config {
+  target_class_config {
+    key: "mask"
+    value {
+      clustering_config {
+        coverage_threshold: 0.00499999988824
+        dbscan_eps: 0.20000000298
+        dbscan_min_samples: 0.0500000007451
+        minimum_bounding_box_height: 20
+      }
+    }
+  }
+  target_class_config {
+    key: "no-mask"
+    value {
+      clustering_config {
+        coverage_threshold: 0.00499999988824
+        dbscan_eps: 0.15000000596
+        dbscan_min_samples: 0.0500000007451
+        minimum_bounding_box_height: 20
+      }
+    }
+  }
+}
+
+model_config {
+  pretrained_model_file: "/home/detectnet_v2/experiment_dir_pruned/resnet18_nopool_bn_detectnet_v2_pruned.tlt"
+  num_layers: 18
+  use_batch_norm: true
+  load_graph: true
+  objective_set {
+    bbox {
+      scale: 35.0
+      offset: 0.5
+    }
+    cov {
+    }
+  }
+  training_precision {
+    backend_floatx: FLOAT32
+  }
+  arch: "resnet"
+}
+
+evaluation_config {
+  validation_period_during_training: 10
+  first_validation_epoch: 10
+  minimum_detection_ground_truth_overlap {
+    key: "mask"
+    value: 0.5
+  }
+  minimum_detection_ground_truth_overlap {
+    key: "no-mask"
+    value: 0.5
+  }
+  evaluation_box_config {
+    key: "mask"
+    value {
+      minimum_height: 20
+      maximum_height: 9999
+      minimum_width: 10
+      maximum_width: 9999
+    }
+  }
+  evaluation_box_config {
+    key: "no-mask"
+    value {
+      minimum_height: 20
+      maximum_height: 9999
+      minimum_width: 10
+      maximum_width: 9999
+    }
+  }
+  average_precision_mode: INTEGRATE
+}
+
+cost_function_config {
+  target_classes {
+    name: "mask"
+    class_weight: 1.0
+    coverage_foreground_weight: 0.0500000007451
+    objectives {
+      name: "cov"
+      initial_weight: 1.0
+      weight_target: 1.0
+    }
+    objectives {
+      name: "bbox"
+      initial_weight: 10.0
+      weight_target: 10.0
+    }
+  }
+  target_classes {
+    name: "no-mask"
+    class_weight: 8.0
+    coverage_foreground_weight: 0.0500000007451
+    objectives {
+      name: "cov"
+      initial_weight: 1.0
+      weight_target: 1.0
+    }
+    objectives {
+      name: "bbox"
+      initial_weight: 10.0
+      weight_target: 1.0
+    }
+  }
+  enable_autoweighting: true
+  max_objective_weight: 0.999899983406
+  min_objective_weight: 9.99999974738e-05
+}
+
+training_config {
+  batch_size_per_gpu: 24
+  num_epochs: 120
+  learning_rate {
+    soft_start_annealing_schedule {
+      min_learning_rate: 5e-06
+      max_learning_rate: 5e-04
+      soft_start: 0.10000000149
+      annealing: 0.699999988079
+    }
+  }
+  regularizer {
+    type: L1
+    weight: 3.00000002618e-09
+  }
+  optimizer {
+    adam {
+      epsilon: 9.99999993923e-09
+      beta1: 0.899999976158
+      beta2: 0.999000012875
+    }
+  }
+  cost_scaling {
+    initial_exponent: 20.0
+    increment: 0.005
+    decrement: 1.0
+  }
+  checkpoint_interval: 10
+}
+
+bbox_rasterizer_config {
+  target_class_config {
+    key: "mask"
+    value {
+      cov_center_x: 0.5
+      cov_center_y: 0.5
+      cov_radius_x: 0.40000000596
+      cov_radius_y: 0.40000000596
+      bbox_min_radius: 1.0
+    }
+  }
+  target_class_config {
+    key: "no-mask"
+    value {
+      cov_center_x: 0.5
+      cov_center_y: 0.5
+      cov_radius_x: 1.0
+      cov_radius_y: 1.0
+      bbox_min_radius: 1.0
+    }
+  }
+  deadzone_radius: 0.400000154972
+}
+

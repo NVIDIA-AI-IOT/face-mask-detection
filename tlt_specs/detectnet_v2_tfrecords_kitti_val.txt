@@ -1,0 +1,9 @@
+kitti_config {
+  root_directory_path: "/home/data/test"
+  image_dir_name: "images"
+  label_dir_name: "labels"
+  image_extension: ".jpg"
+  partition_mode: "random"
+  num_partitions: 2
+  val_split: 100
+  num_shards: 10 }

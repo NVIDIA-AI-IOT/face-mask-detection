@@ -1,0 +1,79 @@
+inferencer_config{
+  # Defining input node of the model
+  # defining target class names for the experiment.
+  # Note: This must be mentioned in order of the networks classes.
+  target_classes: "mask"
+  target_classes: "no-mask"
+  # Inference dimensions.
+  image_width: 960
+  image_height: 544
+  # Must match what the model was trained for.
+  image_channels: 3
+  batch_size: 16
+  gpu_index: 0
+  # model handler config
+  tensorrt_config{
+    trt_engine: "/home/detectnet_v2/experiment_dir_final/resnet18_RGB960_detector_fddb_int8_v100.trt"
+  }
+}
+bbox_handler_config{
+  kitti_dump: true
+  disable_overlay: false
+  overlay_linewidth: 4
+  classwise_bbox_handler_config{
+    key:"mask"
+    value: {
+      confidence_model: "aggregate_cov"
+      output_map: "mask"
+      confidence_threshold: 0.9
+      bbox_color{
+        R: 0
+        G: 255
+        B: 0
+      }
+      clustering_config{
+        coverage_threshold: 0.00
+        dbscan_eps: 0.3
+        dbscan_min_samples: 0.05
+        minimum_bounding_box_height: 4
+      }
+    }
+  }
+  classwise_bbox_handler_config{
+    key:"no-mask"
+    value: {
+      confidence_model: "aggregate_cov"
+      output_map: "no-mask"
+      confidence_threshold: 0.9
+      bbox_color{
+        R: 255
+        G: 0
+        B: 0
+      }
+      clustering_config{
+        coverage_threshold: 0.00
+        dbscan_eps: 0.3
+        dbscan_min_samples: 0.05
+        minimum_bounding_box_height: 4
+      }
+    }
+  }
+  classwise_bbox_handler_config{
+    key:"default"
+    value: {
+      confidence_model: "aggregate_cov"
+      confidence_threshold: 0.9
+      bbox_color{
+        R: 255
+        G: 255
+        B: 0
+      }
+      clustering_config{
+        coverage_threshold: 0.00
+        dbscan_eps: 0.3
+        dbscan_min_samples: 0.05
+        minimum_bounding_box_height: 4
+      }
+    }
+  }
+}

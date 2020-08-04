@@ -1,0 +1,54 @@
+# Copyright (c) 2020 NVIDIA Corporation.  All rights reserved.
+#
+# NVIDIA Corporation and its licensors retain all intellectual property
+# and proprietary rights in and to this software, related documentation
+# and any modifications thereto.  Any use, reproduction, disclosure or
+# distribution of this software and related documentation without an express
+# license agreement from NVIDIA Corporation is strictly prohibited.
+
+[property]
+gpu-id=0
+net-scale-factor=0.0039215697906911373
+tlt-model-key=tlt_encode
+tlt-encoded-model=/mnt/8c3f68c9-a08a-400b-8c80-99c5fee26a06/detectnet_v2_models/detectnet_4K-fddb-12/resnet18_RGB960_detector_fddb_12_int8.etlt
+labelfile-path=labels_masknet.txt
+# GPU Engine File
+model-engine-file=/mnt/8c3f68c9-a08a-400b-8c80-99c5fee26a06/detectnet_v2_models/detectnet_4K-fddb-12/resnet18_RGB960_detector_fddb_12_int8.etlt_b1_gpu0_int8.engine
+# DLA Engine File
+# model-engine-file=/home/nvidia/detectnet_v2_models/detectnet_4K-fddb-12/resnet18_RGB960_detector_fddb_12_int8.etlt_b1_dla0_int8.engine
+input-dims=3;960;544;0
+uff-input-blob-name=input_1
+batch-size=1
+model-color-format=0
+## 0=FP32, 1=INT8, 2=FP16 mode
+network-mode=1
+int8-calib-file=/mnt/8c3f68c9-a08a-400b-8c80-99c5fee26a06/detectnet_v2_models/detectnet_4K-fddb-12/calibration.bin
+num-detected-classes=2
+cluster-mode=1
+interval=0
+gie-unique-id=1
+is-classifier=0
+classifier-threshold=0.9
+output-blob-names=output_bbox/BiasAdd;output_cov/Sigmoid
+
+[class-attrs-0]
+pre-cluster-threshold=0.3
+group-threshold=1
+eps=0.5
+#minBoxes=1
+detected-min-w=0
+detected-min-h=0
+detected-max-w=0
+detected-max-h=0
+
+
+[class-attrs-1]
+pre-cluster-threshold=0.3
+group-threshold=1
+eps=0.3
+#minBoxes=1
+detected-min-w=0
+detected-min-h=0
+detected-max-w=0
+detected-max-h=0
+

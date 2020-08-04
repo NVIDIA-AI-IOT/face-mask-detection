@@ -1,0 +1,91 @@
+# Copyright (c) 2020 NVIDIA Corporation.  All rights reserved.
+#
+# NVIDIA Corporation and its licensors retain all intellectual property
+# and proprietary rights in and to this software, related documentation
+# and any modifications thereto.  Any use, reproduction, disclosure or
+# distribution of this software and related documentation without an express
+# license agreement from NVIDIA Corporation is strictly prohibited.
+
+[application]
+enable-perf-measurement=1
+perf-measurement-interval-sec=1
+
+[tiled-display]
+enable=1
+rows=1
+columns=1
+width=1280 #640
+height=960 #480
+gpu-id=0
+
+
+[source0]
+enable=1
+#Type - 1=CameraV4L2 2=URI 3=MultiURI
+type=3
+num-sources=1
+uri=file:/mnt/8c3f68c9-a08a-400b-8c80-99c5fee26a06/face-mask-videos/C0074.MP4
+gpu-id=0
+
+
+[streammux]
+gpu-id=0
+batch-size=1
+batched-push-timeout=40000
+## Set muxer output width and height
+width=1920
+height=1080
+
+
+[sink0]
+enable=1
+#Type - 1=FakeSink 2=EglSink 3=File
+type=2
+sync=1
+source-id=0
+gpu-id=0
+container=2
+codec=1
+bitrate=2000000
+output-file=/mnt/8c3f68c9-a08a-400b-8c80-99c5fee26a06/video_file.mp4
+
+[osd]
+enable=1
+gpu-id=0
+border-width=4
+text-size=18
+text-color=1;1;1;1;
+text-bg-color=0.3;0.3;0.3;1
+font=Arial
+
+[primary-gie]
+enable=1
+gpu-id=0
+# Modify as necessary
+# GPU engine file
+model-engine-file=/mnt/8c3f68c9-a08a-400b-8c80-99c5fee26a06/detectnet_v2_models/detectnet_4K-fddb-12/resnet18_RGB960_detector_fddb_12_int8.etlt_b1_gpu0_int8.engine
+batch-size=1
+#Required by the app for OSD, not a plugin property
+bbox-border-color0=0;1;0;1
+bbox-border-color1=1;0;0;1
+#bbox-border-color2=0;0;1;1 # Blue
+#bbox-border-color3=0;1;0;1
+gie-unique-id=1
+config-file=config_infer_primary_masknet_gpu.txt
+
+[tracker]
+enable=0
+tracker-width=640
+tracker-height=384
+#ll-lib-file=/opt/nvidia/deepstream/deepstream-5.0/lib/libnvds_mot_iou.so
+#ll-lib-file=/opt/nvidia/deepstream/deepstream-5.0/lib/libnvds_nvdcf.so
+ll-lib-file=/opt/nvidia/deepstream/deepstream-5.0/lib/libnvds_mot_klt.so
+#ll-config-file required for DCF/IOU only
+#ll-config-file=../deepstream-app/tracker_config.yml
+#ll-config-file=iou_config.txt
+gpu-id=0
+#enable-batch-process applicable to DCF only
+enable-batch-process=1
+
+[tests]
+file-loop=1

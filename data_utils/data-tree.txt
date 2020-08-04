@@ -1,0 +1,67 @@
+face-mask-detection-data
+├───MAFA Dataset                                      
+│       ├───MAFA-Label-Test                                    
+│       │       LabelTestAll.mat                                   
+│       │       readme-test.txt                                
+│       │                                                           
+│       ├───MAFA-Label-Train                       
+│       │       LabelTrainAll.mat                      
+│       │       readme-train.txt                       
+│       │                                              
+│       │                                              
+│       ├───test-images                                
+│       │   └───images                                     
+│       │           test_00000001.jpg                          
+│       │           .........                                  
+│       │           .........                                      
+│       │           test_00004935.jpg                                  
+│       │                                                              
+│       ├───train-images                                               
+│           └───images                                             
+│                   train_00000001.jpg                                             
+│                   .........                                                          
+│                   .........                                                                              
+│                   train_00025876.jpg                     
+│                                        
+│
+├───FDDB Dataset                        
+│    ├───2002                            
+│    ├───2003                            
+│    ├───FDDB-folds                      
+│            FDDB-fold-01-ellipseList.txt
+│            FDDB-fold-01.txt            
+│            ..........                  
+│            ..........                  
+│            FDDB-fold-10-ellipseList.txt
+│            FDDB-fold-10.txt            
+│
+│        
+├───Kaggle Medical Mask Dataset
+│    ├───images
+│    │       -1x-1.jpg
+│    │       .........
+│    │       .........
+│    │       w1240-p16x9-fa978043deff83fed485af12d16e39c61398fc30.jpg
+│    │       W37H3GWNO5EV5HTJQNP4KLIRGI.jpg
+│    │       
+│    └───labels
+│            -1x-1.xml
+│            .........
+│            .........
+│            w1240-p16x9-fa978043deff83fed485af12d16e39c61398fc30.xml
+│            W37H3GWNO5EV5HTJQNP4KLIRGI.xml
+│
+├───Wider Face Dataset 
+    ├───wider_face_split
+    │       readme.txt
+    │       wider_face_test.mat
+    │       wider_face_test_filelist.txt
+    │       wider_face_train.mat
+    │       wider_face_train_bbx_gt.txt
+    │       wider_face_val.mat
+    │       wider_face_val_bbx_gt.txt
+    │       
+    ├───WIDER_train
+    │   └───images
+    ├───WIDER_val
+    │   └───images
