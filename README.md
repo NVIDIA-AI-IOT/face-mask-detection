@@ -41,7 +41,7 @@ By the end of this project; you will be able to build DeepStream app on Jetson p
             ```
     - Clone Git repo in TLT container:
         ```
-        git clone https://gitlab-master.nvidia.com/ameykulkarni/tlt-ds-face_mask_detect.git
+        git clone https://github.com/NVIDIA-AI-IOT/face-mask-detection.git
         ```
     - Install data conversion dependencies
         ```
@@ -50,7 +50,7 @@ By the end of this project; you will be able to build DeepStream app on Jetson p
         ```
 
 - Prepare input data set
-    - We expect downloaded data in [this](https://gitlab-master.nvidia.com/ameykulkarni/tlt-ds-face_mask_detect/-/blob/master/data_utils/data-tree.txt) structure.
+    - We expect downloaded data in [this](https://github.com/NVIDIA-AI-IOT/face-mask-detection/blob/master/data_utils/data-tree.txt) structure.
     - Move converted data to your GPU Training machine: (Skip this, if you have downloaded data on training machine)
       ```
       scp -r <converted_data> </home/workspace>
@@ -67,8 +67,8 @@ By the end of this project; you will be able to build DeepStream app on Jetson p
                                --tlt-input-dims_height <tlt input height > \
                                --train < for generating training dataset > ```
 
-- Perform training using [TLT training flow](https://gitlab-master.nvidia.com/ameykulkarni/tlt-ds-face_mask_detect#tlt-training-flow)
-    - Use ['face-mask-detection'](https://gitlab-master.nvidia.com/ameykulkarni/tlt-ds-face_mask_detect/-/blob/master/face-mask-detection.ipynb) Jupyter Notebook provided with this repository
+- Perform training using [TLT training flow](https://github.com/NVIDIA-AI-IOT/face-mask-detection#nvidia-transfer-learning-toolkit-tlt-training-flow-)
+    - Use ['face-mask-detection'](https://github.com/NVIDIA-AI-IOT/face-mask-detection/blob/master/face-mask-detection.ipynb) Jupyter Notebook provided with this repository
     - Follow TLT training flow
 
 - Perform inference using DeepStream SDK on Jetson
