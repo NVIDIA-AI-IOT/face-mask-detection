@@ -29,25 +29,29 @@ By the end of this project; you will be able to build DeepStream app on Jetson p
 *Note: We do not use all the images from MAFA and WiderFace. Combining we will use about 6000 faces each with and without mask*
 
 ## Steps to perform Face Detection with Mask:
+
 - Install dependencies and Docker Container <br/>
-    - Install NVIDIA Docker Container: [installation instructions](https://developer.nvidia.com/blog/gpu-containers-runtime/) [TLT Toolkit Requirements](https://docs.nvidia.com/metropolis/TLT/tlt-getting-started-guide/index.html#requirements) <br/>
-    - [Running Transfer Learning Toolkit using Docker](https://ngc.nvidia.com/catalog/containers/nvidia:tlt-streamanalytics)
-        - Pull docker container:<br/>
-            ```docker pull nvcr.io/nvidia/tlt-streamanalytics:v2.0_dp_py2```
-        - Run the docker image:
-            ```
-            docker run --runtime=nvidia -it -v "/path/to/dir/on/host":"/path/to/dir/in/docker" \
-                                    -p 8888:8888 nvcr.io/nvidia/tlt-streamanalytics:v2.0_dp_py2 /bin/bash
-            ```
-    - Clone Git repo in TLT container:
-        ```
-        git clone https://github.com/NVIDIA-AI-IOT/face-mask-detection.git
-        ```
-    - Install data conversion dependencies
-        ```
-        cd tlt-ds-face_mask_detect
-        python3 -m pip install -r requirements.txt
-        ```
+  - On Training Machine with NVIDIA GPU:
+      - Install NVIDIA Docker Container: [installation instructions](https://developer.nvidia.com/blog/gpu-containers-runtime/) [TLT Toolkit Requirements](https://docs.nvidia.com/metropolis/TLT/tlt-getting-started-guide/index.html#requirements) <br/>
+      - [Running Transfer Learning Toolkit using Docker](https://ngc.nvidia.com/catalog/containers/nvidia:tlt-streamanalytics)
+          - Pull docker container:<br/>
+              ```docker pull nvcr.io/nvidia/tlt-streamanalytics:v2.0_py3```
+          - Run the docker image:
+              ```
+              docker run --gpus all -it -v "/path/to/dir/on/host":"/path/to/dir/in/docker" \
+                            -p 8888:8888 nvcr.io/nvidia/tlt-streamanalytics:v2.0_py3 /bin/bash
+              ```
+      - Clone Git repo in TLT container:
+          ```
+          git clone https://github.com/NVIDIA-AI-IOT/face-mask-detection.git
+          ```
+      - Install data conversion dependencies
+          ```
+          cd tlt-ds-face_mask_detect
+          python3 -m pip install -r requirements.txt
+          ```
+  - On NVIDIA Jetson:
+      - [Install DeepStream](https://docs.nvidia.com/metropolis/deepstream/dev-guide/index.html#page/DeepStream_Development_Guide/deepstream_quick_start.html#wwpID0E0GI0HA)
 
 - Prepare input data set
     - We expect downloaded data in [this](https://github.com/NVIDIA-AI-IOT/face-mask-detection/blob/master/data_utils/data-tree.txt) structure.
