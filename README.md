@@ -1,4 +1,4 @@
-# tlt-ds-face_mask_detect
+# face_mask_detection
 
 The project shows, tutorial for NVIDIA's Transfer Learning Toolkit (TLT) + DeepStream (DS) SDK ie training and inference flow for detecting faces with mask and without mask on Jetson Platform.
 
