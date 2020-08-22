@@ -20,7 +20,7 @@ By the end of this project; you will be able to build DeepStream app on Jetson p
 
 ### Preferred Datasets
 - Faces with Mask
-	- Kaggle Medical Mask Dataset [Download Link](https://www.kaggle.com/vtech6/medical-masks-dataset)
+	- Kaggle Medical Mask Dataset [Download Link](https://www.kaggle.com/ivandanilovich/medical-masks-dataset-images-tfrecords)
 	- MAFA - MAsked FAces [Download Link](http://www.escience.cn/people/geshiming/mafa.html)
 - Faces without Mask
 	- FDDB Dataset [Download Link](http://vis-www.cs.umass.edu/fddb/)
