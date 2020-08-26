@@ -1,5 +1,7 @@
 # face_mask_detection
 
+[NVIDIA Developer Blog](https://developer.nvidia.com/blog/implementing-a-real-time-ai-based-face-mask-detector-application-for-covid-19/)
+
 The project shows, tutorial for NVIDIA's Transfer Learning Toolkit (TLT) + DeepStream (DS) SDK ie training and inference flow for detecting faces with mask and without mask on Jetson Platform.
 
 By the end of this project; you will be able to build DeepStream app on Jetson platform to detect faces with mask and without mask. 
