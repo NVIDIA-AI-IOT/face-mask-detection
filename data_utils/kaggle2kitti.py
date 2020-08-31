@@ -90,44 +90,18 @@ class kaggle2kitti():
         print("Kaggle Dataset: Total Mask faces: {} and No-Mask faces:{}".format(_count_mask, _count_no_mask))
         return _count_mask, _count_no_mask
 
-    def test_labels(self, file_name):
-        img = Image.open(os.path.join(self.kitti_images, file_name + '.jpg'))
-        text_file = open(os .path.join(self.kitti_labels, file_name + '.txt'), 'r')
-        features = []
-        bbox = []
-        category = []
-        for line in text_file:
-            features = line.split()
-            bbox.append([float(features[4]), float(features[5]), float(features[6]), float(features[7])])
-            category.append(features[0])
-        print("Bounding Box", bbox)
-        print("Category:", category)
-        i = 0
-        for bb in bbox:
-            cc = category[i]
-            if cc == 'mask':
-                outline_box = 'red'
-            elif cc == "no-mask":
-                outline_box = 'green'
-            draw_img = ImageDraw.Draw(img)
-            shape = ((bb[0], bb[1]), (bb[2], bb[3]))
-            draw_img.rectangle(shape, fill=None, outline=outline_box)
-            draw_img.text((bb[0], bb[1]), cc, (255,255,255))
-
-            i+=1
-
-        img.show()
 
 def main():
-    images_dir = r'C:\Users\ameykulkarni\Downloads\527030_966454_bundle_archive\images'
-    labels_dir = r'C:\Users\ameykulkarni\Downloads\527030_966454_bundle_archive\labels'
-    kitti_base_dir = r'C:\Users\ameykulkarni\Downloads\527030_966454_bundle_archive\KITTI'
+    images_dir = '/home/nvidia/face-mask-detection/datasets/medical-masks-dataset/images'
+    labels_dir = '/home/nvidia/face-mask-detection/datasets/medical-masks-dataset/labels'
+    kitti_base_dir = '/home/nvidia/face-mask-detection/datasets/medical-masks-dataset/KITTI_1024'
     kitti_resize_dims = (960,544)
     category_limit = [10,10]
     medical_mask2kitti = kaggle2kitti(images_dir=images_dir, labels_dir=labels_dir,
                                       category_limit=category_limit,
                                       kitti_base_dir=kitti_base_dir, kitti_resize_dims=kitti_resize_dims)
     medical_mask2kitti.get_data_attributes()
-    medical_mask2kitti.test_labels(file_name='012420_coronoa_masks_web')
+
+
 if __name__ == '__main__':
     main()

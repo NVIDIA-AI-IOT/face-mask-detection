@@ -49,7 +49,6 @@ def main():
             annotation_file = os.path.join(mafa_base_dir, 'MAFA-Label-Test/LabelTestAll.mat')
             mafa_base_dir = os.path.join(mafa_base_dir, 'test-images/images')
 
-
         total_masks += count_masks
         total_no_masks += count_no_masks
         print("Total Mask Labelled:{} and No-Mask Labelled:{}".format(total_masks, total_no_masks))
