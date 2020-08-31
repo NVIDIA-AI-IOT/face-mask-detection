@@ -65,7 +65,7 @@ class kaggle2kitti():
                     for object_tag in labels.findall("object"):
                         cat_name = object_tag.find("name").text
 
-                        if (cat_name == 'good'):
+                        if (cat_name == 'mask'):
                             category = 'Mask'
                             xmin = int(object_tag.find("bndbox/xmin").text)
                             xmax = int(object_tag.find("bndbox/xmax").text)
@@ -75,7 +75,7 @@ class kaggle2kitti():
                             categories.append(category)
                             bboxes.append(bbox)
                             _count_mask += 1
-                        elif cat_name == 'bad':
+                        elif cat_name == 'none':
                             category = 'No-Mask'
                             xmin = int(object_tag.find("bndbox/xmin").text)
                             xmax = int(object_tag.find("bndbox/xmax").text)

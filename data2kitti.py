@@ -11,14 +11,14 @@ def main():
     arg_parser = argparser_data2kitti()
     args = arg_parser.make_args()
     # Datasets for Masked Faces
-    kaggle_base_dir = r'C:\Users\ameykulkarni\Downloads\face-mask-dataset\527030_966454_bundle_archive' #args.kaggle_dataset_path # Use all data from Kaggle
-    mafa_base_dir = r'C:\Users\ameykulkarni\Downloads\face-mask-dataset\MAFA' #args.mafa_dataset_path # Use only about 4000 images from MAFA
+    kaggle_base_dir = args.kaggle_dataset_path # Use all data from Kaggle
+    mafa_base_dir = args.mafa_dataset_path # Use only about 4000 images from MAFA
     # Datasets for No-Masked Faces
-    fddb_base_dir = r'C:\Users\ameykulkarni\Downloads\face-mask-dataset\FDDB' #args.fddb_dataset_path # Use all data from FDDB
-    widerface_base_dir = r'C:\Users\ameykulkarni\Downloads\face-mask-dataset\WiderFace-Dataset' #args.widerface_dataset_path # Use only from selected sub-folders
+    fddb_base_dir = args.fddb_dataset_path # Use all data from FDDB
+    widerface_base_dir = args.widerface_dataset_path # Use only from selected sub-folders
     ''' Note: Kaggle, FDDB Data sets does not have validation data thus we use all data for training '''
     # Store Converted annotations in KITTI format
-    kitti_base_dir = r'C:\Users\ameykulkarni\Downloads\face-mask-dataset\KITTI_gitcheck' #args.kitti_base_path
+    kitti_base_dir = args.kitti_base_path
     category_limit = [args.category_limit, args.category_limit]  # Mask / No-Mask Limits
     kitti_resize_dims = (args.tlt_input_dims_width, args.tlt_input_dims_height)  # Default for DetectNet-v2 : Look at TLT model requirements
 
@@ -44,10 +44,10 @@ def main():
         # ----------------------------------------
         if args.train:
             annotation_file = os.path.join(mafa_base_dir, 'MAFA-Label-Train/LabelTrainAll.mat')
-            mafa_base_dir = os.path.join(mafa_base_dir, 'train-images\images')
+            mafa_base_dir = os.path.join(mafa_base_dir, 'train-images/images')
         if args.val:
             annotation_file = os.path.join(mafa_base_dir, 'MAFA-Label-Test/LabelTestAll.mat')
-            mafa_base_dir = os.path.join(mafa_base_dir, 'test-images\images')
+            mafa_base_dir = os.path.join(mafa_base_dir, 'test-images/images')
 
 
         total_masks += count_masks

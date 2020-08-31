@@ -95,7 +95,8 @@ class mafa2kitti():
         return _count_mask, _count_no_mask
 
     def check_image_dims(self, image_name):
-        img = Image.open(os.path.join(self.mafa_base_dir, image_name)).convert("RGB")
+        file_name=os.path.join(self.mafa_base_dir, image_name)
+        img = Image.open(file_name).convert("RGB")
         img_w, img_h = img.size
         if img_w < img_h:
             return True
