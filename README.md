@@ -63,10 +63,10 @@ By the end of this project; you will be able to build DeepStream app on Jetson p
       ```
     - Convert data set to KITTI format
       ```
-      python3 data2kitti.py --kaggle-dataset-path <kaggle dataset directory path> \
-                               --mafa-dataset-path <mafa dataset directory path> \
-                               --fddb-dataset-path < FDDB dataset directory path> \
-                               --widerface-dataset-path <widerface dataset directory path> \
+      python3 data2kitti.py --kaggle-dataset-path <kaggle dataset absolute directory path> \
+                               --mafa-dataset-path <mafa dataset absolute  directory path> \
+                               --fddb-dataset-path < FDDB dataset absolute  directory path> \
+                               --widerface-dataset-path <widerface dataset absolute  directory path> \
                                --kitti-base-path < Out directory for storing KITTI formatted annotations > \
                                --category-limit < Category Limit for Masked and No-Mask Faces > \
                                --tlt-input-dims_width < tlt input width > \
