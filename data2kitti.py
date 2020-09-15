@@ -68,7 +68,6 @@ def main():
             total_no_masks += count_no_masks
             print("Total Mask Labelled:{} and No-Mask Labelled:{}".format(total_masks, total_no_masks))
             category_limit_mod = [category_limit[0]-total_masks, category_limit[1]-total_no_masks]
-            fddb_base_dir = os.path.join(fddb_base_dir, 'originalPics') # r'C:\Users\ameykulkarni\Downloads\FDDB-folds\originalPics'
             annotation_path = os.path.join(fddb_base_dir, 'FDDB-folds') #r'C:\Users\ameykulkarni\Downloads\FDDB-folds\FDDB-folds'
             kitti_label = fddb2kitti(annotation_path=annotation_path, fddb_base_dir=fddb_base_dir,
                                      kitti_base_dir=kitti_base_dir, kitti_resize_dims=kitti_resize_dims,

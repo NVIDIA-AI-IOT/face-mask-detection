@@ -98,7 +98,6 @@ class fddb2kitti():
         return _count_mask, _count_no_mask
 
     def mat2data(self, read_file, _count_no_mask, _count_mask):
-        # print("File Name: {}".format(read_file))
         strings = ("2002/", "2003/")
         with open(read_file, 'r') as f:
             lines = f.readlines()
@@ -122,16 +121,15 @@ class fddb2kitti():
                     if bboxes:
                         self.make_labels(image_name=image_name, category_names=category_names, bboxes=bboxes)
                     _count_no_mask+=1
-
         return _count_mask, _count_no_mask
 
 def main():
-    fddb_base_dir = r'C:\Users\ameykulkarni\Downloads\FDDB-folds\originalPics'
-    annotation_path = r'C:\Users\ameykulkarni\Downloads\FDDB-folds\FDDB-folds'
-    kitti_base_dir = r'C:\Users\ameykulkarni\Downloads\MAFA\KITTI'
+    fddb_base_dir = '/home/nvidia/face-mask-detection/datasets/fddb' 
+    annotation_path = '/home/nvidia/face-mask-detection/datasets/fddb/FDDB-folds'
+    kitti_base_dir = '/home/nvidia/face-mask-detection/datasets/KITTI_1024'
 
     category_limit = [1000, 1000] # Mask / No-Mask Limits
-    kitti_resize_dims = (480, 272) # Look at TLT model requirements
+    kitti_resize_dims = (960, 544) # Look at TLT model requirements
     kitti_label = fddb2kitti(annotation_path=annotation_path, fddb_base_dir=fddb_base_dir,
                              kitti_base_dir=kitti_base_dir, kitti_resize_dims=kitti_resize_dims,
                              category_limit=category_limit)
