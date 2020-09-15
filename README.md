@@ -67,7 +67,8 @@ By the end of this project; you will be able to build DeepStream app on Jetson p
                                --category-limit < Category Limit for Masked and No-Mask Faces > \
                                --tlt-input-dims_width < tlt input width > \
                                --tlt-input-dims_height <tlt input height > \
-                               --train < for generating training dataset > ```
+                               --train < for generating training dataset >
+        ```
 
       You will see following output log:<br/>
 
@@ -87,7 +88,7 @@ By the end of this project; you will be able to build DeepStream app on Jetson p
         Total No-Mask Labelled:6001
         ----------------------------
       ```
-      
+
       * Note: You might get warnings; you can safely ignore it * <br/>
     - Move converted data to your GPU Training machine: (Skip this, if you have downloaded data on training machine)
       ```
