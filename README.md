@@ -88,8 +88,8 @@ By the end of this project; you will be able to build DeepStream app on Jetson p
         Total No-Mask Labelled:6001
         ----------------------------
       ```
+   *Note: You might get warnings; you can safely ignore it*
 
-      * Note: You might get warnings; you can safely ignore it * <br/>
     - Move converted data to your GPU Training machine: (Skip this, if you have downloaded data on training machine)
       ```
       scp -r <converted_data> </home/workspace>
