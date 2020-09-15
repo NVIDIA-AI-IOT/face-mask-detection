@@ -57,10 +57,6 @@ By the end of this project; you will be able to build DeepStream app on Jetson p
 
 - Prepare input data set
     - We expect downloaded data in [this](https://github.com/NVIDIA-AI-IOT/face-mask-detection/blob/master/data_utils/data-tree.txt) structure.
-    - Move converted data to your GPU Training machine: (Skip this, if you have downloaded data on training machine)
-      ```
-      scp -r <converted_data> </home/workspace>
-      ```
     - Convert data set to KITTI format
       ```
       python3 data2kitti.py --kaggle-dataset-path <kaggle dataset absolute directory path> \
@@ -72,7 +68,28 @@ By the end of this project; you will be able to build DeepStream app on Jetson p
                                --tlt-input-dims_width < tlt input width > \
                                --tlt-input-dims_height <tlt input height > \
                                --train < for generating training dataset > ```
+      You will see following output log:<br/>
+      ```
+        Kaggle Dataset: Total Mask faces: 4154 and No-Mask faces:790
+        Total Mask Labelled:4154 and No-Mask Labelled:790
 
+        MAFA Dataset: Total Mask faces: 1846 and No-Mask faces:232
+        Total Mask Labelled:6000 and No-Mask Labelled:1022
+
+        FDDB Dataset: Mask Labelled:0 and No-Mask Labelled:2845
+        Total Mask Labelled:6000 and No-Mask Labelled:3867
+
+        WideFace: Total Mask Labelled:0 and No-Mask Labelled:2134
+        ----------------------------
+        Final: Total Mask Labelled:6000
+        Total No-Mask Labelled:6001
+        ----------------------------
+      ```
+      * Note: You might get warnings; you can safely ignore it * <br/>
+    - Move converted data to your GPU Training machine: (Skip this, if you have downloaded data on training machine)
+      ```
+      scp -r <converted_data> </home/workspace>
+      ```
 - Perform training using [TLT training flow](https://github.com/NVIDIA-AI-IOT/face-mask-detection#nvidia-transfer-learning-toolkit-tlt-training-flow-)
     - Use ['face-mask-detection'](https://github.com/NVIDIA-AI-IOT/face-mask-detection/blob/master/face-mask-detection.ipynb) Jupyter Notebook provided with this repository
     - Follow TLT training flow
