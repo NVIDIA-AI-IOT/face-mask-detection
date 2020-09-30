@@ -49,15 +49,16 @@ By the end of this project; you will be able to build DeepStream app on Jetson p
           ```
       - Install data conversion dependencies
           ```
-          cd tlt-ds-face_mask_detect
+          cd face-mask-detection
           python3 -m pip install -r requirements.txt
           ```
   - On NVIDIA Jetson:
       - [Install DeepStream](https://docs.nvidia.com/metropolis/deepstream/dev-guide/index.html#page/DeepStream_Development_Guide/deepstream_quick_start.html#wwpID0E0GI0HA)
 
-- Prepare input data set
+- Prepare input data set (On training machine)
     - We expect downloaded data in [this](https://github.com/NVIDIA-AI-IOT/face-mask-detection/blob/master/data_utils/data-tree.txt) structure.
     - Convert data set to KITTI format
+      ``` cd face-mask-detection ``` <br/>
       ```
       python3 data2kitti.py --kaggle-dataset-path <kaggle dataset absolute directory path> \
                                --mafa-dataset-path <mafa dataset absolute  directory path> \
@@ -90,12 +91,9 @@ By the end of this project; you will be able to build DeepStream app on Jetson p
       ```
    *Note: You might get warnings; you can safely ignore it*
 
-    - Move converted data to your GPU Training machine: (Skip this, if you have downloaded data on training machine)
-      ```
-      scp -r <converted_data> </home/workspace>
-      ```
+    
 - Perform training using [TLT training flow](https://github.com/NVIDIA-AI-IOT/face-mask-detection#nvidia-transfer-learning-toolkit-tlt-training-flow-)
-    - Use ['face-mask-detection'](https://github.com/NVIDIA-AI-IOT/face-mask-detection/blob/master/face-mask-detection.ipynb) Jupyter Notebook provided with this repository
+    - Use ['face-mask-detection'](https://github.com/NVIDIA-AI-IOT/face-mask-detection/blob/master/face-mask-detection.ipynb) Jupyter Notebook provided with this repository. 
     - Follow TLT training flow
 
 - Perform inference using DeepStream SDK on Jetson
@@ -111,7 +109,7 @@ By the end of this project; you will be able to build DeepStream app on Jetson p
         - Modify model file and config file paths:
             - Look for ``` model-engine-file, config-file ``` under ```primary-gie```
     - Use deepstream-app to deploy in real-time
-          ```$deepstream-app -c deepstream_app_source1_camera_masknet_gpu.txt```<br/>
+          ```$deepstream-app -c deepstream_app_source1_video_masknet_gpu.txt```<br/>
     - We provide two different config files:
         - DS running on GPU only with camera input: ```deepstream_app_source1__camera_masknet_gpu.txt ```
         - DS running on GPU only with saved video input: ```deepstream_app_source1_video_masknet_gpu.txt ```

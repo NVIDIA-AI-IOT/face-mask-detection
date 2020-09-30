@@ -18,19 +18,35 @@ class widerFace2kitti():
         self.train = train
         self.len_dataset = len(self.file_names)
         if self.train:
-            # os.makedirs(self.kitti_base_dir+'/train/images',mode=0o777)
+            try: 
+                os.makedirs(self.kitti_base_dir+'/train/images',mode=0o777)
+            except FileExistsError:
+                print("Directory Already Exists")
+
             self.kitti_images = os.path.join(self.kitti_base_dir, 'train/images')
-            # os.makedirs(self.kitti_base_dir+ '/train/labels',mode=0o777)
+            try:
+                os.makedirs(self.kitti_base_dir+ '/train/labels',mode=0o777)
+            except FileExistsError:
+                print("Directory Already Exists")
+
             self.kitti_labels = os.path.join(self.kitti_base_dir, 'train/labels')
         else:
-            # os.makedirs(self.kitti_base_dir+'/test/images',mode=0o777)
+            try:
+                os.makedirs(self.kitti_base_dir+'/test/images',mode=0o777)
+            except FileExistsError:
+                print("Directory Already Exists")
+
             self.kitti_images = os.path.join(self.kitti_base_dir, 'test/images')
-            # os.makedirs(self.kitti_base_dir+'/test/labels',mode=0o777)
+            try:
+                os.makedirs(self.kitti_base_dir+'/test/labels',mode=0o777)
+            except FileExistsError:
+                print("Directory Already Exists")
+
             self.kitti_labels = os.path.join(self.kitti_base_dir, 'test/labels')
 
     def make_labels(self, image_name, category_names, bboxes):
         # Process image
-        file_image = os.path.splitext(image_name)[0].split('\\')[1]
+        file_image = os.path.split(os.path.splitext(image_name)[0])[1]
         img = Image.open(os.path.join(self.widerFace_base_dir, image_name)).convert("RGB")
         resize_img = img.resize(self.kitti_resize_dims)
         resize_img.save(os.path.join(self.kitti_images, file_image+'.jpg'), 'JPEG')
@@ -56,18 +72,19 @@ class widerFace2kitti():
     def mat2data(self):
         count = 0
         _count_mask, _count_no_mask = 0,0
-        pick_list = ['19--Couple', '13--Interview', '16--Award_Ceremony','2--Demonstration', '22--Picnic']
+        #pick_list = ['19--Couple', '13--Interview', '16--Award_Ceremony','2--Demonstration', '22--Picnic']
         # Use following pick list for more image data
-        # pick_list = ['2--Demonstration', '4--Dancing', '5--Car_Accident', '15--Stock_Market', '23--Shoppers',
-        #              '27--Spa', '32--Worker_Laborer', '33--Running', '37--Soccer',
-        #              '47--Matador_Bullfighter','57--Angler', '51--Dresses', '46--Jockey',
-        #              '9--Press_Conference','16--Award_Ceremony', '17--Ceremony',
-        #              '20--Family_Group', '22--Picnic', '25--Soldier_Patrol', '31--Waiter_Waitress',
-        #              '49--Greeting', '38--Tennis', '43--Row_Boat', '29--Students_Schoolkids']
+        pick_list = ['2--Demonstration', '4--Dancing', '5--Car_Accident', '15--Stock_Market', '23--Shoppers',
+                      '27--Spa', '32--Worker_Laborer', '33--Running', '37--Soccer',
+                      '47--Matador_Bullfighter','57--Angler', '51--Dresses', '46--Jockey',
+                      '9--Press_Conference','16--Award_Ceremony', '17--Ceremony',
+                      '20--Family_Group', '22--Picnic', '25--Soldier_Patrol', '31--Waiter_Waitress',
+                      '49--Greeting', '38--Tennis', '43--Row_Boat', '29--Students_Schoolkids']
         for event_idx, event in enumerate(self.event_list):
             directory = event[0][0]
             if any(ele in directory for ele in pick_list):
                 for im_idx, im in enumerate(self.file_names[event_idx][0]):
+                    _t_count_no_mask = 0
                     im_name = im[0][0]
                     read_im_file = os.path.join(directory, im_name+'.jpg')
                     face_bbx = self.bbox_list[event_idx][0][im_idx][0]
@@ -86,12 +103,12 @@ class widerFace2kitti():
                                 category_name = 'No-Mask'
                                 bboxes.append((xmin, ymin, xmax, ymax))
                                 category_names.append(category_name)
-                                _count_no_mask += 1
-                        try:
-                            if bboxes:
-                                self.make_labels(image_name=read_im_file, category_names= category_names, bboxes=bboxes)
-                        except:
-                            pass
+                                _t_count_no_mask+=1
+                        
+                        if bboxes and len(bboxes)<4:
+                            _count_no_mask += _t_count_no_mask
+                            print("Len of BBox:{} in Image:{}".format(len(bboxes),im_name))
+                            self.make_labels(image_name=read_im_file, category_names= category_names, bboxes=bboxes)
 
         print("WideFace: Total Mask Labelled:{} and No-Mask Labelled:{}".format(_count_mask, _count_no_mask))
         return _count_mask, _count_no_mask
@@ -122,8 +139,8 @@ class widerFace2kitti():
         img.show()
 
 def main():
-    widerFace_base_dir = r'C:\Users\nvidia\Downloads\WiderFace-Dataset' # Update According to dataset location
-    kitti_base_dir = r'C:\Users\nvidia\Downloads\KITTI' # Update According to KITTI output dataset location
+    widerFace_base_dir = '/home/nvidia/tlt-ds-face_mask_detect/dataset/WiderFace-Dataset' # Update According to dataset location
+    kitti_base_dir = '/home/nvidia/tlt-ds-face_mask_detect/dataset/KITTI_960' # Update According to KITTI output dataset location
     train = True # For generating validation dataset; select False
     if train:
         annotation_file = os.path.join(widerFace_base_dir, 'wider_face_split/wider_face_train.mat')
@@ -134,7 +151,7 @@ def main():
         widerFace_base_dir = os.path.join(widerFace_base_dir, 'test-images\images')
 
     category_limit = [1000, 1000] # Mask / No-Mask Limits
-    kitti_resize_dims = (480, 272) # Look at TLT model requirements
+    kitti_resize_dims = (960, 544) # Look at TLT model requirements
     kitti_label = widerFace2kitti(annotation_file=annotation_file, widerFace_base_dir=widerFace_base_dir,
                              kitti_base_dir=kitti_base_dir, kitti_resize_dims=kitti_resize_dims,
                              category_limit=category_limit, train=train)
