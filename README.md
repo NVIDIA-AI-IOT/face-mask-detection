@@ -23,7 +23,7 @@ By the end of this project; you will be able to build DeepStream app on Jetson p
 ### Preferred Datasets
 - Faces with Mask
 	- Kaggle Medical Mask Dataset [Download Link](https://www.kaggle.com/ivandanilovich/medical-masks-dataset-images-tfrecords)
-	- MAFA - MAsked FAces [Download Link](https://pan.baidu.com/s/1qiflOq65yMNNTXyt8020GA): pass-code is 4fz6
+	- MAFA - MAsked FAces [Download Link](https://drive.google.com/drive/folders/1nbtM1n0--iZ3VVbNGhocxbnBGhMau_OG)
 - Faces without Mask
 	- FDDB Dataset [Download Link](http://vis-www.cs.umass.edu/fddb/)
 	- WiderFace Dataset [Download Link](http://shuoyang1213.me/WIDERFACE/)
@@ -180,4 +180,5 @@ By the end of this project; you will be able to build DeepStream app on Jetson p
 - Shiming Ge, Jia Li, Qiting Ye, Zhao Luo; "Detecting Masked Faces in the Wild With LLE-CNNs", Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2017, pp. 2682-2690
 - Vidit Jain and Erik Learned-Miller. "FDDB: A Benchmark for Face Detection in Unconstrained Settings". Technical Report UM-CS-2010-009, Dept. of Computer Science, University of Massachusetts, Amherst. 2010
 - Yang, Shuo and Luo, Ping and Loy, Chen Change and Tang, Xiaoou; "WIDER FACE: A Face Detection Benchmark", IEEE Conference on Computer Vision and Pattern Recognition (CVPR),2016
+- MAFA Dataset Google Link: Courtesy [aome510](https://github.com/aome510/Mask-Classifier)
 
