@@ -7,6 +7,11 @@ from data_utils.check_labels import test_labels
 import os
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     # Set Parameters
     arg_parser = argparser_data2kitti()
     args = arg_parser.make_args()

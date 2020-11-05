@@ -7,6 +7,17 @@ import numpy as np
 
 class fddb2kitti():
     def __init__(self, annotation_path, fddb_base_dir, kitti_base_dir, kitti_resize_dims, category_limit):
+        """
+        Initialize kitti file
+
+        Args:
+            self: (todo): write your description
+            annotation_path: (str): write your description
+            fddb_base_dir: (str): write your description
+            kitti_base_dir: (str): write your description
+            kitti_resize_dims: (int): write your description
+            category_limit: (str): write your description
+        """
         self.annot_path = annotation_path
         self.kitti_base_dir = kitti_base_dir
         self.fddb_base_dir = fddb_base_dir
@@ -25,6 +36,13 @@ class fddb2kitti():
         self.kitti_labels = os.path.join(self.kitti_base_dir, 'train/labels')
 
     def ellipese2bbox(self, face_annotations):
+        """
+        Returns a bounding box for a bounding box.
+
+        Args:
+            self: (todo): write your description
+            face_annotations: (todo): write your description
+        """
         major_axis_radius = int(float(face_annotations[0]))
         minor_axis_radius = int(float(face_annotations[1]))
         angle = int(float(face_annotations[2]))
@@ -60,6 +78,15 @@ class fddb2kitti():
         return left, top, width, height
 
     def make_labels(self, image_name, category_names, bboxes):
+        """
+        Creates labels for each image.
+
+        Args:
+            self: (todo): write your description
+            image_name: (str): write your description
+            category_names: (str): write your description
+            bboxes: (todo): write your description
+        """
         # Process image
         file_image = os.path.splitext(os.path.split(image_name)[1])[0]
         img = Image.open(os.path.join(self.fddb_base_dir, image_name)).convert("RGB")
@@ -78,6 +105,15 @@ class fddb2kitti():
                 label_file.write(out_str[0])
 
     def resize_bbox(self, img, bbox, dims):
+        """
+        Resize the bounding box.
+
+        Args:
+            self: (todo): write your description
+            img: (array): write your description
+            bbox: (todo): write your description
+            dims: (int): write your description
+        """
         img_w, img_h = img.size
         x_min, y_min, x_max, y_max = bbox
         ratio_w, ratio_h = dims[0] / img_w, dims[1] / img_h
@@ -86,6 +122,12 @@ class fddb2kitti():
         return new_bbox
 
     def fddb_data(self):
+        """
+        Fdd of masks.
+
+        Args:
+            self: (todo): write your description
+        """
         _count_mask, _count_no_mask = 0, 0
         for root, dirs, files in os.walk(self.annot_path):
             for file in files:
@@ -98,6 +140,15 @@ class fddb2kitti():
         return _count_mask, _count_no_mask
 
     def mat2data(self, read_file, _count_no_mask, _count_mask):
+        """
+        Read mask as a 2d array.
+
+        Args:
+            self: (todo): write your description
+            read_file: (str): write your description
+            _count_no_mask: (str): write your description
+            _count_mask: (int): write your description
+        """
         strings = ("2002/", "2003/")
         with open(read_file, 'r') as f:
             lines = f.readlines()
@@ -124,6 +175,11 @@ class fddb2kitti():
         return _count_mask, _count_no_mask
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     fddb_base_dir = '/home/nvidia/face-mask-detection/datasets/fddb' 
     annotation_path = '/home/nvidia/face-mask-detection/datasets/fddb/FDDB-folds'
     kitti_base_dir = '/home/nvidia/face-mask-detection/datasets/KITTI_1024'

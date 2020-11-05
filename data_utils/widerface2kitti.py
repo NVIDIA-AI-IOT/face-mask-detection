@@ -4,6 +4,18 @@ from PIL import Image, ImageDraw
 
 class widerFace2kitti():
     def __init__(self, annotation_file, widerFace_base_dir, kitti_base_dir, kitti_resize_dims, category_limit, train):
+        """
+        Initialize the kitt dataset.
+
+        Args:
+            self: (todo): write your description
+            annotation_file: (str): write your description
+            widerFace_base_dir: (str): write your description
+            kitti_base_dir: (str): write your description
+            kitti_resize_dims: (int): write your description
+            category_limit: (str): write your description
+            train: (todo): write your description
+        """
         self.annotation_file = annotation_file
         self.data = scipy.io.loadmat(self.annotation_file)
         self.file_names = self.data.get('file_list') # File Name
@@ -45,6 +57,15 @@ class widerFace2kitti():
             self.kitti_labels = os.path.join(self.kitti_base_dir, 'test/labels')
 
     def make_labels(self, image_name, category_names, bboxes):
+        """
+        Creates the labels for the image.
+
+        Args:
+            self: (todo): write your description
+            image_name: (str): write your description
+            category_names: (str): write your description
+            bboxes: (todo): write your description
+        """
         # Process image
         file_image = os.path.split(os.path.splitext(image_name)[0])[1]
         img = Image.open(os.path.join(self.widerFace_base_dir, image_name)).convert("RGB")
@@ -63,6 +84,15 @@ class widerFace2kitti():
                 label_file.write(out_str[0])
 
     def resize_bbox(self, img, bbox, dims):
+        """
+        Resize a bounding box.
+
+        Args:
+            self: (todo): write your description
+            img: (array): write your description
+            bbox: (todo): write your description
+            dims: (int): write your description
+        """
         img_w, img_h = img.size
         x_min, y_min, x_max, y_max = bbox
         ratio_w, ratio_h = img_w / dims[0], img_h / dims[1]
@@ -70,6 +100,12 @@ class widerFace2kitti():
         return new_bbox
 
     def mat2data(self):
+        """
+        Reads the face matrix.
+
+        Args:
+            self: (todo): write your description
+        """
         count = 0
         _count_mask, _count_no_mask = 0,0
         #pick_list = ['19--Couple', '13--Interview', '16--Award_Ceremony','2--Demonstration', '22--Picnic']
@@ -114,6 +150,13 @@ class widerFace2kitti():
         return _count_mask, _count_no_mask
 
     def test_labels(self, file_name):
+        """
+        Fills the image labels.
+
+        Args:
+            self: (todo): write your description
+            file_name: (str): write your description
+        """
         img = Image.open(os.path.join(self.kitti_images, file_name + '.jpg'))
         text_file = open(os .path.join(self.kitti_labels, file_name + '.txt'), 'r')
         features = []
@@ -139,6 +182,11 @@ class widerFace2kitti():
         img.show()
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     widerFace_base_dir = '/home/nvidia/tlt-ds-face_mask_detect/dataset/WiderFace-Dataset' # Update According to dataset location
     kitti_base_dir = '/home/nvidia/tlt-ds-face_mask_detect/dataset/KITTI_960' # Update According to KITTI output dataset location
     train = True # For generating validation dataset; select False

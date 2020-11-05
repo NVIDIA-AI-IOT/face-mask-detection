@@ -5,6 +5,17 @@ import numpy as np
 
 class kaggle2kitti():
     def __init__(self, images_dir, labels_dir, kitti_base_dir, kitti_resize_dims, category_limit):
+        """
+        Initialize kitti images
+
+        Args:
+            self: (todo): write your description
+            images_dir: (str): write your description
+            labels_dir: (str): write your description
+            kitti_base_dir: (str): write your description
+            kitti_resize_dims: (int): write your description
+            category_limit: (str): write your description
+        """
         self.images_dir = images_dir
         self.labels_dir = labels_dir
         self.count_mask = category_limit[0]
@@ -22,10 +33,26 @@ class kaggle2kitti():
             print("Directory Already Exists")
         self.kitti_labels = os.path.join(self.kitti_base_dir, 'train/labels')
     def get_image_metafile(self, image_file):
+        """
+        Returns image file name.
+
+        Args:
+            self: (str): write your description
+            image_file: (str): write your description
+        """
         image_name = os.path.splitext(image_file)[0]
         return os.path.join(self.labels_dir, str(image_name+'.xml'))
 
     def make_labels(self, image_name, category_names, bboxes):
+        """
+        Creates labels for each image.
+
+        Args:
+            self: (todo): write your description
+            image_name: (str): write your description
+            category_names: (str): write your description
+            bboxes: (todo): write your description
+        """
         # Process image
         file_image = os.path.splitext(image_name)[0]
         img = Image.open(os.path.join(self.images_dir, image_name)).convert("RGB")
@@ -44,6 +71,15 @@ class kaggle2kitti():
                 label_file.write(out_str[0])
 
     def resize_bbox(self, img, bbox, dims):
+        """
+        Resize the bounding box.
+
+        Args:
+            self: (todo): write your description
+            img: (array): write your description
+            bbox: (todo): write your description
+            dims: (int): write your description
+        """
         img_w, img_h = img.size
         x_min, y_min, x_max, y_max = bbox
         ratio_w, ratio_h = dims[0] / img_w, dims[1] / img_h
@@ -52,6 +88,12 @@ class kaggle2kitti():
         return new_bbox
 
     def get_data_attributes(self):
+        """
+        Generate xml attributes for the image.
+
+        Args:
+            self: (todo): write your description
+        """
         image_extensions = ['.jpeg', '.jpg', '.png']
         _count_mask = 0
         _count_no_mask = 0
@@ -92,6 +134,11 @@ class kaggle2kitti():
 
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     images_dir = '/home/nvidia/face-mask-detection/datasets/medical-masks-dataset/images'
     labels_dir = '/home/nvidia/face-mask-detection/datasets/medical-masks-dataset/labels'
     kitti_base_dir = '/home/nvidia/face-mask-detection/datasets/medical-masks-dataset/KITTI_1024'
