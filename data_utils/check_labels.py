@@ -2,6 +2,13 @@ import os
 from PIL import Image, ImageDraw
 
 def test_labels(kitti_base_dir, file_name):
+    """
+    Draw kitti labels.
+
+    Args:
+        kitti_base_dir: (str): write your description
+        file_name: (str): write your description
+    """
     img = Image.open(os.path.join(kitti_base_dir+'images/', file_name + '.jpg'))
     text_file = open(os.path.join(kitti_base_dir+'labels/', file_name + '.txt'), 'r')
     bbox = []

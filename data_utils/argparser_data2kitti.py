@@ -2,6 +2,12 @@ import argparse
 
 class argparser_data2kitti():
     def __init__(self):
+        """
+        Initialize the arguments.
+
+        Args:
+            self: (todo): write your description
+        """
         self.parser = argparse.ArgumentParser(description='')
         self.parser.add_argument('--kaggle-dataset-path', dest='kaggle_dataset_path',
                                  help='path to kaggle dataset train and validation images', type=str)
@@ -25,4 +31,10 @@ class argparser_data2kitti():
         data_group.add_argument('--check_labels', dest='check_labels', help='Check if Converted dataset is right', action='store_true')
 
     def make_args(self):
+        """
+        Parse command line arguments.
+
+        Args:
+            self: (todo): write your description
+        """
         return self.parser.parse_args()
