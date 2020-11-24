@@ -16,7 +16,7 @@ labelfile-path=labels_masknet.txt
 model-engine-file=/mnt/8c3f68c9-a08a-400b-8c80-99c5fee26a06/detectnet_v2_models/detectnet_4K-fddb-12/resnet18_RGB960_detector_fddb_12_int8.etlt_b1_gpu0_int8.engine
 # DLA Engine File
 # model-engine-file=/home/nvidia/detectnet_v2_models/detectnet_4K-fddb-12/resnet18_RGB960_detector_fddb_12_int8.etlt_b1_dla0_int8.engine
-input-dims=3;960;544;0
+input-dims=3;544;960;0
 uff-input-blob-name=input_1
 batch-size=1
 model-color-format=0
