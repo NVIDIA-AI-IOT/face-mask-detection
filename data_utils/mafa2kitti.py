@@ -88,7 +88,7 @@ class mafa2kitti():
                     category_name = 'No-Mask'
                     bboxes.append(bbox)
                     categories.append(category_name)
-                    _count_no_mask+1
+                    _count_no_mask+=1
             if bboxes:
                 if not self.check_image_dims(image_name=test_image_name):
                     self.make_labels(image_name=test_image_name, category_names=categories, bboxes=bboxes)
